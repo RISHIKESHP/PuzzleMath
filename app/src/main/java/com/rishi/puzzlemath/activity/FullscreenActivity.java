@@ -3,23 +3,15 @@ package com.rishi.puzzlemath.activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.rishi.puzzlemath.R;
-import com.rishi.puzzlemath.adapter.NumberRecyclerAdapter;
 import com.rishi.puzzlemath.util.Util;
 
 
-public class FullscreenActivity extends AppCompatActivity implements NumberRecyclerAdapter.ItemClickListener{
-    private RecyclerView mNumberRecyclerView;
+public class FullscreenActivity extends AppCompatActivity {
     private TextView mNumberTextview;
-    private NumberRecyclerAdapter mNumberRecyclerAdapter;
     private Util mUtil;
-    private String mNumbers[];
 
 
     @Override
@@ -34,7 +26,6 @@ public class FullscreenActivity extends AppCompatActivity implements NumberRecyc
         mUtil = new Util();
         initViews();
         setNumberValue();
-//        setAdapter();
     }
 
     private void setNumberValue() {
@@ -50,28 +41,17 @@ public class FullscreenActivity extends AppCompatActivity implements NumberRecyc
             case 4:
             case 5:
             case 6:
-                mUtil.setMin(16);
-                mUtil.setMax(30);
+                mUtil.setMin(50);
+                mUtil.setMax(100);
                 break;
         }
-        mNumberTextview.setText(""+mUtil.getRandomNumber(mUtil.getMin(),mUtil.getMax()));
+        int result = mUtil.getRandomNumber(mUtil.getMin(),mUtil.getMax());
+        mNumberTextview.setText(""+result);
+        mUtil.getPossibleList(result);
     }
 
     private void initViews() {
-   //     mNumberRecyclerView = findViewById(R.id.rv_numbers);
         mNumberTextview = findViewById(R.id.tv_value);
     }
-    private void setAdapter() {
-        mNumbers = new String[]{"1","2","3","4","5","6","7","8","9"};
-        int numberOfColumns = 3;
-        mNumberRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        mNumberRecyclerAdapter = new NumberRecyclerAdapter(FullscreenActivity.this,mNumbers);
-        mNumberRecyclerAdapter.setClickListener(this);
-        mNumberRecyclerView.setAdapter(mNumberRecyclerAdapter);
-    }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Log.i("TAG", "You clicked number " + mNumberRecyclerAdapter.getItem(position) + ", which is at cell position " + position);
-    }
 }
