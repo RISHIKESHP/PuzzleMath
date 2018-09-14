@@ -9,6 +9,10 @@ public class Util {
     private String TAG = Util.class.getSimpleName();
     private int min;
     private int max;
+    private int level;
+    private ArrayList<String> mMultipleList;
+    private ArrayList<String> mAdditionList;
+    private ArrayList<String> mDevisionList;
 
     public int getLevel() {
         return level;
@@ -17,8 +21,6 @@ public class Util {
     public void setLevel(int level) {
         this.level = level;
     }
-
-    private int level;
 
     public int getMin() {
         return min;
@@ -39,12 +41,39 @@ public class Util {
     public int getRandomNumber(int min, int max){
         return new Random().nextInt((max - min) + 1) + min;
     }
+    public String getAdditonProb()
+    {
+        String mAdditionProb = "";
+        if (mAdditionList == null || mAdditionList.size() == 0)
+            return mAdditionProb;
+        mAdditionProb = mAdditionList.get(getRandomValueForList(mAdditionList.size()-1));
+        return mAdditionProb;
+    }
+    public String getMulProb()
+    {
+        String mMultiplicationProb = "";
+        if (mMultipleList == null || mMultipleList.size() == 0)
+            return mMultiplicationProb;
+        mMultiplicationProb = mMultipleList.get(getRandomValueForList(mMultipleList.size()-1));
+        return mMultiplicationProb;
+    }
+    public String getDevProb()
+    {
+        String mDevisionProb = "";
+        if (mDevisionList == null || mDevisionList.size() == 0)
+            return mDevisionProb;
+        mDevisionProb = mDevisionList.get(getRandomValueForList(mDevisionList.size()-1));
+        return mDevisionProb;
+    }
+    private int getRandomValueForList(int listSize){
+        return new Random().nextInt((listSize - 1) + 1) + 1;
+    }
     public void getPossibleList(int number)
     {
         int mNumber = number;
-        ArrayList<String> mMultipleList = new ArrayList<>();
-        ArrayList<String> mAdditionList = new ArrayList<>();
-        ArrayList<String> mDevisionList = new ArrayList<>();
+        mMultipleList = new ArrayList<>();
+        mAdditionList = new ArrayList<>();
+        mDevisionList = new ArrayList<>();
 
        for (int i = 1; i <= mNumber ;i++)
         {
@@ -59,7 +88,7 @@ public class Util {
                    Log.d(TAG,"possible lists add are :"+i+"+"+j);
                }
            }
-            int mul = 0;
+           int mul = 0;
            if (i > 1) {
                mul = i * mNumber;
                mDevisionList.add(mul+"/"+i);
@@ -71,5 +100,10 @@ public class Util {
         Log.d(TAG,"mAdditionList IS :"+mAdditionList.toString());
         Log.d(TAG,"mDevisionList IS :"+mDevisionList.toString());
 
+    }
+    public void clearAllData(){
+        mMultipleList = null;
+        mAdditionList = null;
+        mDevisionList = null;
     }
 }

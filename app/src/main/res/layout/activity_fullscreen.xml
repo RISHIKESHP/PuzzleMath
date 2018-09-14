@@ -16,9 +16,10 @@
         android:layout_weight="8"
         android:orientation="horizontal">
         <LinearLayout
+            android:id="@+id/emptyTvsLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_weight="0.7">
 
         </LinearLayout>
